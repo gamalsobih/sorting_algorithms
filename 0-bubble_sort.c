@@ -30,6 +30,7 @@ void bubble_sort(int *array, size_t size)
 					k++;
 				}
 			i=k;
+			k=0;
 			
 		}
 	
