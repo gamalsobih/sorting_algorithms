@@ -1,38 +1,83 @@
 #include "sort.h"
+
 /**
- *bubble_sort - Function that sorts an array of ints
- *using bubble sort algorithm
+ * _swap - Swaps two nodes of doubly linked list
  *
- *@array: array of ints
- *@size: size of array
+ * @node: node base to change
+ * @list: double link list head
  *
+ * Return: No Return
+ */
+void _swap(listint_t **node, listint_t **list)
+{
+	listint_t *tmp = *node, *tmp2, *tmp3;
+
+	if (!(*node)->prev)
+		*list = (*node)->next;
+
+	tmp = tmp3 = *node;
+	tmp2 = tmp->next;
+
+	tmp->next = tmp2->next;
+	tmp3 = tmp->prev;
+	tmp->prev = tmp2;
+	tmp2->next = tmp;
+	tmp2->prev = tmp3;
+
+	if (tmp2->prev)
+		tmp2->prev->next = tmp2;
+
+
+	if (tmp->next)
+		tmp->next->prev = tmp;
+
+	*node = tmp2;
+
+}
+/**
+ * insertion_sort_list - sorts a doubly linked list of integers
+ * in ascending order using the Insertion sort algorithm
+ *
+ * @list: doubly linked list
+ *
+ * Return: No Return
  */
 void insertion_sort_list(listint_t **list)
 {
-	int t,s;
-	size_t i, k;
-	k=0;
-	i=size;
-	s=1;
-	while(s==1)
+	listint_t  *head, *tback, *aux;
+
+	if (!list || !(*list) || (!((*list)->prev) && !((*list)->next)))
+		return;
+
+	head = *list;
+	while (head && head->next)
+	{
+		if (head->n > head->next->n)
 		{
-			s=0;
-			while(k<i-1)
-				{	
-					if(array[k]>array[k+1])
-					{
-						t=array[k];
-						array[k]=array[k+1];
-						array[k+1]=t;
-						s=1;
-						print_array(array, size);
-					}
-					
-					k++;
+			aux = head;
+
+			_swap(&aux, list);
+			print_list(*list);
+			head = aux;
+			tback = aux;
+
+			while (tback && tback->prev)
+			{
+
+				if (tback->n < tback->prev->n)
+				{
+					aux = tback->prev;
+
+					_swap(&(aux), list);
+
+					print_list(*list);
+					tback = aux->next;
 				}
-			i=k;
-			k=0;
-			
+
+				tback = tback->prev;
+			}
+
 		}
-	
+		head = head->next;
+	}
 }
