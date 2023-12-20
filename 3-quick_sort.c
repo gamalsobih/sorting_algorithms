@@ -3,59 +3,64 @@
 /**
  * swap_items - Swaps two items in an array.
  * @array: The array to modify.
- * @l: The index of the left item.
- * @r: The index of the right item.
+ * @left: The index of the left item.
+ * @right: The index of the right item.
  */
-void swap_items(int *array, size_t l, size_t r)
+void swap_items(int *array, size_t left, size_t right)
 {
-	int tmp;
+    int tmp;
 
-	if (array != NULL)
-	{
-		tmp = array[l];
-		array[l] = array[r];
-		array[r] = tmp;
-	}
+    if (array != NULL)
+    {
+        tmp = array[left];
+        array[left] = array[right];
+        array[right] = tmp;
+    }
 }
 
 /**
  * quick_sort_range_lomuto - Sorts a sub array using the
  * quick sort algorithm and Lomuto's partition scheme.
  * @array: The array containing the sub-array.
- * @low: The starting position of the sub-array.
- * @high: The ending position of the sub-array.
+ * @start: The starting position of the sub-array.
+ * @end: The ending position of the sub-array.
  * @size: The length of the array.
  */
-void quick_sort_range_lomuto(int *array, size_t low, size_t high, size_t size)
+void quick_sort_range_lomuto(int *array, size_t start, size_t end, size_t size)
 {
-	size_t k, i;
-	int pivot;
+    size_t pivot_index, i;
+    int pivot_value;
 
-	if ((low >= high) || (array == NULL))
-		return;
-	pivot = array[high];
-	k = low;
-	for (i = low; i < high; i++)
-	{
-		if (array[i] <= pivot)
-		{
-			if (k != i)
-			{
-				swap_items(array, k, i);
-				print_array(array, size);
-			}
-			k++;
-		}
-	}
-	if (k != high)
-	{
-		swap_items(array, k, high);
-		print_array(array, size);
-	}
-	if (k - low > 1)
-		quick_sort_range_lomuto(array, low, k - 1, size);
-	if (high - k > 1)
-		quick_sort_range_lomuto(array, k + 1, high, size);
+    if ((start >= end) || (array == NULL))
+        return;
+
+    pivot_value = array[end];
+    pivot_index = start;
+
+    for (i = start; i < end; i++)
+    {
+        if (array[i] <= pivot_value)
+        {
+            if (pivot_index != i)
+            {
+                swap_items(array, pivot_index, i);
+                print_array(array, size);
+            }
+            pivot_index++;
+        }
+    }
+
+    if (pivot_index != end)
+    {
+        swap_items(array, pivot_index, end);
+        print_array(array, size);
+    }
+
+    if (pivot_index - start > 1)
+        quick_sort_range_lomuto(array, start, pivot_index - 1, size);
+
+    if (end - pivot_index > 1)
+        quick_sort_range_lomuto(array, pivot_index + 1, end, size);
 }
 
 /**
@@ -66,8 +71,8 @@ void quick_sort_range_lomuto(int *array, size_t low, size_t high, size_t size)
  */
 void quick_sort(int *array, size_t size)
 {
-	if (array != NULL)
-	{
-		quick_sort_range_lomuto(array, 0, size - 1, size);
-	}
+    if (array != NULL)
+    {
+        quick_sort_range_lomuto(array, 0, size - 1, size);
+    }
 }
