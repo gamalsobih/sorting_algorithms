@@ -26,7 +26,7 @@ void print_list(const listint_t *list);
 void check_list(const listint_t *list);
 void check_array(const int *array, size_t size);
 int *rand_array(int len, int max);
-void swap_items(int *array, size_t left, size_t right);
+void swap_items(int *array, size_t l, size_t r);
 void quick_sort_range_lomuto(int *array, size_t start, size_t end, size_t size);
 
 void bubble_sort(int *array, size_t size);
