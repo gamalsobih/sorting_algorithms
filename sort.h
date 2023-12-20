@@ -26,7 +26,7 @@ void print_list(const listint_t *list);
 void check_list(const listint_t *list);
 void check_array(const int *array, size_t size);
 int *rand_array(int len, int max);
-void swap(int *a, int *b);
+void swap_items(int *array, size_t l, size_t r);
 int partition(int *array, int low, int high, size_t size);
 void lomuto_sort(int *array, int low, int high, size_t size);
 
