@@ -8,14 +8,14 @@
  */
 void swap_items(int *array, size_t left, size_t right)
 {
-    int tmp;
+	int tmp;
 
-    if (array != NULL)
-    {
-        tmp = array[left];
-        array[left] = array[right];
-        array[right] = tmp;
-    }
+	if (array != NULL)
+	{
+		tmp = array[left];
+		array[left] = array[right];
+		array[right] = tmp;
+	}
 }
 
 /**
@@ -28,39 +28,39 @@ void swap_items(int *array, size_t left, size_t right)
  */
 void quick_sort_range_lomuto(int *array, size_t start, size_t end, size_t size)
 {
-    size_t pivot_index, i;
-    int pivot_value;
+	size_t pivot_index, i;
+	int pivot_value;
 
-    if ((start >= end) || (array == NULL))
-        return;
+	if ((start >= end) || (array == NULL))
+		return;
 
-    pivot_value = array[end];
-    pivot_index = start;
+	pivot_value = array[end];
+	pivot_index = start;
 
-    for (i = start; i < end; i++)
-    {
-        if (array[i] <= pivot_value)
-        {
-            if (pivot_index != i)
-            {
-                swap_items(array, pivot_index, i);
-                print_array(array, size);
-            }
-            pivot_index++;
-        }
-    }
+	for (i = start; i < end; i++)
+	{
+		if (array[i] <= pivot_value)
+		{
+			if (pivot_index != i)
+			{
+				swap_items(array, pivot_index, i);
+				print_array(array, size);
+			}
+			pivot_index++;
+		}
+	}
 
-    if (pivot_index != end)
-    {
-        swap_items(array, pivot_index, end);
-        print_array(array, size);
-    }
+	if (pivot_index != end)
+	{
+		swap_items(array, pivot_index, end);
+		print_array(array, size);
+	}
 
-    if (pivot_index - start > 1)
-        quick_sort_range_lomuto(array, start, pivot_index - 1, size);
+	if (pivot_index - start > 1)
+		quick_sort_range_lomuto(array, start, pivot_index - 1, size);
 
-    if (end - pivot_index > 1)
-        quick_sort_range_lomuto(array, pivot_index + 1, end, size);
+	if (end - pivot_index > 1)
+		quick_sort_range_lomuto(array, pivot_index + 1, end, size);
 }
 
 /**
@@ -71,8 +71,6 @@ void quick_sort_range_lomuto(int *array, size_t start, size_t end, size_t size)
  */
 void quick_sort(int *array, size_t size)
 {
-    if (array != NULL)
-    {
-        quick_sort_range_lomuto(array, 0, size - 1, size);
-    }
+	if (array != NULL)
+		quick_sort_range_lomuto(array, 0, size - 1, size);
 }
