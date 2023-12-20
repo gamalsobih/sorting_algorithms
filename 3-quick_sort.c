@@ -1,11 +1,5 @@
 #include "sort.h"
 
-/* Function prototypes */
-void swap(int *a, int *b);
-int partition(int *array, int low, int high);
-void lomuto_sort(int *array, int low, int high);
-void quick_sort(int *array, size_t size);
-
 /**
  * swap - swaps two integers in an array
  * @a: first integer to swap
