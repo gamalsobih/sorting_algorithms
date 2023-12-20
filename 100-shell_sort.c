@@ -1,41 +1,64 @@
 #include "sort.h"
 
 /**
- * shell_sort - sort array with shell 
- * @array: array to sort
- * @size: size of the array
- *
- * Return: nothing
-*/
-
-void shell_sort(int *array, size_t size)
+ * swap - swaps two nodes
+ * @head: head of the list
+ * @node1: first node to sort
+ * @node2: second node to sort
+ */
+void swap(listint_t **head, listint_t *node1, listint_t *node2)
 {
-	int in = 0, out = 0, range = 1, aux = 0;
+	listint_t *prev, *next;
 
-	if (!array || size < 2)
+	prev = node1->prev;
+	next = node2->next;
+
+	if (prev != NULL)
+		prev->next = node2;
+	else
+		*head = node2;
+	node1->prev = node2;
+	node1->next = next;
+	node2->prev = prev;
+	node2->next = node1;
+	if (next)
+		next->prev = node1;
+}
+/**
+ * cocktail_sort_list - sorts a list using the cocktail sort algorithm
+ * @list: list to sort
+ */
+void cocktail_sort_list(listint_t **list)
+{
+	listint_t *head;
+	int flag = 0;
+
+	if (!list || !*list || !(*list)->next)
 		return;
 
-	while (range < (int) size / 3)
-		range = range * 3 + 1;
-
-	while (range > 0)
-	{
-		out = range;
-		while (out < (int) size)
+	do {
+		for (head = *list; head->next != NULL; head = head->next)
 		{
-			aux = array[out];
-			in = out;
-
-			while (in > range - 1 && array[in - range] >= aux)
+			if (head->n > head->next->n)
 			{
-				array[in] = array[in - range];
-				in = in - range;
+				swap(list, head, head->next);
+				print_list(*list);
+				flag = 1;
+				head = head->prev;
 			}
-
-			array[in] = aux;
-			out++;
 		}
-		print_array(array, size);
-		range = (range - 1) / 3;
-	}
+		if (flag == 0)
+			break;
+		flag = 0;
+		for (; head->prev != NULL; head = head->prev)
+		{
+			if (head->n < head->prev->n)
+			{
+				swap(list, head->prev, head);
+				print_list(*list);
+				flag = 1;
+				head = head->next;
+			}
+		}
+	} while (flag == 1);
 }
