@@ -21,7 +21,7 @@ void swap(int *a, int *b)
  *
  * Return: index for the pivot
  */
-int partition(int *array, int low, int high)
+int partition(int *array, int low, int high, size_t size)
 {
     int pivot = array[high];
     int i = (low - 1);
@@ -50,7 +50,7 @@ int partition(int *array, int low, int high)
  * @high: high index of the partition to sort
  * @size: size of the array
  */
-void lomuto_sort(int *array, int low, int high)
+void lomuto_sort(int *array, int low, int high, size_t size)
 {
     if (low < high)
     {
